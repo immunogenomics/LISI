@@ -11,3 +11,4 @@ Imports: Rcpp (>= 1.0.1), RANN, ggplot2, dplyr, tidyr
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 6.1.1
 Suggests: testthat
+LazyData: true
