@@ -10,11 +10,12 @@ float Hbeta(arma::mat& D, float beta, arma::vec& P, int idx) {
     P = D.col(idx) * 0;
   } else {
     H = log(sumP) + beta * sum(D.col(idx) % P) / sumP;
-    P /= sumP;
+    P = P / sumP;
   }
   return(H);
 }
 
+//' @export
 // [[Rcpp::export]]
 arma::vec compute_simpson_index(arma::mat& D, arma::umat& knn_idx, arma::vec& batch_labels, int n_batches,
                                 float perplexity = 15, float tol = 1e-5) {
@@ -33,7 +34,7 @@ arma::vec compute_simpson_index(arma::mat& D, arma::umat& knn_idx, arma::vec& ba
     Hdiff = H - logU;
     tries = 0;
     // first get neighbor probabilities
-    while(std::abs(Hdiff) > tol && tries < 50) {
+    while(std::fabs(Hdiff) > tol && tries < 50) {
       if (Hdiff > 0){
         betamin = beta;
         if (!arma::is_finite(betamax)) beta *= 2;

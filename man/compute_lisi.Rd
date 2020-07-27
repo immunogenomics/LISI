@@ -7,14 +7,15 @@
 compute_lisi(X, meta_data, label_colnames, perplexity = 30, nn_eps = 0)
 }
 \arguments{
-\item{X}{sample by feature matrix.}
+\item{X}{A matrix with cells (rows) and features (columns).}
 
-\item{meta_data}{Dataframe with cell labels.}
+\item{meta_data}{A data frame with one row per cell.}
 
 \item{label_colnames}{Which variables to compute LISI for.}
 }
 \value{
-Table (data.frame) of LISI values. Each row is a cell and each column is a different label variable.
+A data frame of LISI values. Each row is a cell and each
+column is a different label variable.
 }
 \description{
 Use this function to compute LISI scores of one or more labels.
@@ -25,8 +26,8 @@ Use this function to compute LISI scores of one or more labels.
 library(lisi)
 head(lisi::meta_data)
 
-## Let's color cells by labels. For label 1, there are mixed and non-mixed groups. 
-## for label 2, all cells are well mixed. 
+## Let's color cells by labels. For label 1, there are mixed and non-mixed
+## groups. For label 2, all cells are well mixed. 
 lisi::X \%>\% 
   cbind(lisi::meta_data) \%>\% 
   dplyr::sample_frac(1L, FALSE) \%>\% 
@@ -34,7 +35,7 @@ lisi::X \%>\%
   ggplot(aes(X1, X2, color = val)) + geom_point(shape = 21) + 
   facet_wrap(~key)
   
-## now to compute and plot the LISI values for each label. 
+## Now to compute and plot the LISI values for each label. 
 lisi_res <- lisi::compute_lisi(lisi::X, lisi::meta_data, c('label1', 'label2'))
 head(lisi_res)
 

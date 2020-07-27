@@ -4,7 +4,9 @@
 \name{X}
 \alias{X}
 \title{Simulated dataset.}
-\format{A data.frame with 400 rows and 2 columns}
+\format{
+A data.frame with 400 rows and 2 columns
+}
 \usage{
 X
 }

@@ -4,7 +4,9 @@
 \name{meta_data}
 \alias{meta_data}
 \title{Metadata table.}
-\format{A data.frame with 400 rows and 2 columns}
+\format{
+A data.frame with 400 rows and 2 columns
+}
 \usage{
 meta_data
 }
