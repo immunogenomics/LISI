@@ -1,19 +1,19 @@
 Package: lisi
 Type: Package
-Title: Local neighborhood diversity for scRNAseq.
+Title: Local Inverse Simpson Index (LISI) for scRNAseq data
 Version: 1.0
 Date: 2019-03-31
 Author: Ilya Korsunsky
 Maintainer: Ilya Korsunsky <ilya.korsunsky@gmail.com>
 Description: This method was designed to assess how well mixed cells with
     different labels are in single cell RNAseq. This method uses the Inverse
-    Simpson's Index to compute diversity of each cells' neighborhood.
+    Simpson's Index to compute diversity of each cell's local neighborhood.
 License: GPL-3 + file LICENSE
 Depends: R (>= 3.4.0), Rcpp
 LinkingTo: Rcpp, RcppArmadillo
-Imports: Rcpp (>= 1.0.1), RANN, ggplot2, dplyr, tidyr
+Imports: RANN
 RoxygenNote: 7.1.1
-Suggests: testthat
+Suggests: testthat, dplyr, tidyr, magrittr, ggplot2
 NeedsCompilation: yes
 LazyData: true
 Encoding: UTF-8

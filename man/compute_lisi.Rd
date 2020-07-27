@@ -12,6 +12,11 @@ compute_lisi(X, meta_data, label_colnames, perplexity = 30, nn_eps = 0)
 \item{meta_data}{A data frame with one row per cell.}
 
 \item{label_colnames}{Which variables to compute LISI for.}
+
+\item{perplexity}{The effective number of each cell's neighbors.}
+
+\item{nn_eps}{Error bound for nearest neighbor search with \code{RANN:nn2()}.
+Default of 0.0 implies exact nearest neighbor search.}
 }
 \value{
 A data frame of LISI values. Each row is a cell and each
@@ -24,27 +29,33 @@ Use this function to compute LISI scores of one or more labels.
 
 ## Example with 400 cells. 
 library(lisi)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(magrittr)
+
 head(lisi::meta_data)
 
 ## Let's color cells by labels. For label 1, there are mixed and non-mixed
 ## groups. For label 2, all cells are well mixed. 
 lisi::X \%>\% 
   cbind(lisi::meta_data) \%>\% 
-  dplyr::sample_frac(1L, FALSE) \%>\% 
-  tidyr::gather(key, val, label1, label2) \%>\% 
-  ggplot(aes(X1, X2, color = val)) + geom_point(shape = 21) + 
-  facet_wrap(~key)
+  sample_frac(1L, FALSE) \%>\% 
+  gather(key, val, label1, label2) \%>\% 
+  ggplot(aes(X1, X2, color = val)) +
+    geom_point(shape = 21) + 
+    facet_wrap(~key)
   
 ## Now to compute and plot the LISI values for each label. 
-lisi_res <- lisi::compute_lisi(lisi::X, lisi::meta_data, c('label1', 'label2'))
+lisi_res <- compute_lisi(lisi::X, lisi::meta_data, c('label1', 'label2'))
 head(lisi_res)
 
 lisi::X \%>\% 
   cbind(lisi_res) \%>\% 
-  dplyr::sample_frac(1L, FALSE) \%>\% 
-  tidyr::gather(key, lisi_value, label1, label2) \%>\% 
-  ggplot(aes(X1, X2, color = lisi_value)) + geom_point(shape = 21) + 
-  facet_wrap(~key)
+  sample_frac(1L, FALSE) \%>\% 
+  gather(key, lisi_value, label1, label2) \%>\% 
+  ggplot(aes(X1, X2, color = lisi_value)) +
+    geom_point(shape = 21) + 
+    facet_wrap(~key)
 
-  
 }

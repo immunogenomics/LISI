@@ -3,4 +3,5 @@
 export(compute_lisi)
 export(compute_simpson_index)
 import(Rcpp)
+importFrom(RANN,nn2)
 useDynLib(lisi)

@@ -15,16 +15,30 @@ float Hbeta(arma::mat& D, float beta, arma::vec& P, int idx) {
   return(H);
 }
 
+//' Compute the Local Inverse Simpson Index (LISI)
+//' 
+//' @param D Distance matrix of K nearest neighbors.
+//' @param knn_idx Adjacency matrix of K nearest neighbors.
+//' @param batch_labels A categorical variable.
+//' @param n_batches The number of categories in the categorical variable.
+//' @param perplexity The effective number of neighbors around each cell.
+//' @param tol Stop when the score converges to this tolerance.
 //' @export
 // [[Rcpp::export]]
-arma::vec compute_simpson_index(arma::mat& D, arma::umat& knn_idx, arma::vec& batch_labels, int n_batches,
-                                float perplexity = 15, float tol = 1e-5) {
+arma::vec compute_simpson_index(
+  arma::mat& D,
+  arma::umat& knn_idx,
+  arma::vec& batch_labels,
+  int n_batches,
+  float perplexity = 15,
+  float tol = 1e-5
+) {
   int n = D.n_cols;
   arma::vec P = arma::zeros<arma::vec>(D.n_rows);
   arma::vec simpson = arma::zeros<arma::vec>(n);
   float logU = log(perplexity);
   
-  float hbeta, beta, betamin, betamax, H, Hdiff;
+  float beta, betamin, betamax, H, Hdiff;
   int tries;
   for (int i = 0; i < n ; i++) {
     beta = 1;
@@ -66,5 +80,4 @@ arma::vec compute_simpson_index(arma::mat& D, arma::umat& knn_idx, arma::vec& ba
   }
   return(simpson);
 }
-
 
