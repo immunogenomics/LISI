@@ -44,7 +44,6 @@ Here is a small example that uuses the data provided with the lisi R
 package.
 
     library(lisi)
-    #> Loading required package: Rcpp
 
     head(X)
     #>          X1           X2
