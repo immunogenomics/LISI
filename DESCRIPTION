@@ -9,9 +9,9 @@ Description: This method was designed to assess how well mixed cells with
     different labels are in single cell RNAseq. This method uses the Inverse
     Simpson's Index to compute diversity of each cell's local neighborhood.
 License: GPL-3 + file LICENSE
-Depends: R (>= 3.4.0), Rcpp
+Depends: R (>= 3.4.0)
 LinkingTo: Rcpp, RcppArmadillo
-Imports: RANN
+Imports: Rcpp, RANN
 RoxygenNote: 7.1.1
 Suggests: testthat, dplyr, tidyr, magrittr, ggplot2
 NeedsCompilation: yes
