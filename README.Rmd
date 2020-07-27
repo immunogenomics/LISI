@@ -1,0 +1,76 @@
+---
+title: "LISI"
+output: github_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+[![R-CMD-check](https://github.com/immunogenomics/LISI/workflows/R-CMD-check/badge.svg)](https://github.com/immunogenomics/LISI/actions)
+
+To assess whether clusters of cells in a single-cell RNA-seq dataset are
+well-mixed across some categorical variable (e.g. batch, technology, donor), we
+provide an algorithm for computing a Local Inverse Simpson's Index (LISI).
+
+## Citation
+
+Learn more about how we use LISI to measure single cell integration methods in
+the Harmony paper:
+
+- Korsunsky, I. et al. [Fast, sensitive and accurate integration of single-cell
+  data with Harmony.][Korsunsky] Nat. Methods (2019)
+
+[Korsunsky]: https://www.nature.com/articles/s41592-019-0619-0
+
+Or see the freely available pre-print at [bioRxiv].
+
+[bioRxiv]: https://www.biorxiv.org/content/early/2018/11/04/461954
+
+
+## Installation 
+
+Install the lisi R package with devtools: 
+
+```{r, eval = FALSE}
+install.packages("devtools")
+devtools::install_github("immunogenomics/lisi")
+```
+
+
+## Example
+
+We can compute the LISI for each cell with these inputs:
+
+- a matrix of cells (rows) and coordinates (PC scores, tSNE or UMAP dimensions, etc.)
+
+- a data frame with categorical variables (one row for each cell)
+
+Here is a small example that uuses the data provided with the lisi R package.
+
+```{r}
+library(lisi)
+
+head(X)
+
+head(meta_data)
+
+table(meta_data$label1)
+
+table(meta_data$label2)
+
+res <- compute_lisi(X, meta_data, c('label1', 'label2'))
+head(res)
+```
+
+Each row in the output data frame corresponds to a cell from `X`. The score
+(e.g. 1.92) indicates the effective number of different categories represented
+in the local neighborhood of each cell. If the cells are well-mixed, then we
+might expect the LISI score to be near 2 for a categorical variable with 2
+categories.
+
+Learn more by running `?compute_lisi` in R. 
+
